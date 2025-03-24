@@ -2,8 +2,10 @@ import React, { useContext } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import logoImg from '../../assets/images/freshcart-logo.svg'
 import  { AuthContext } from '../../Context/AuthContextProvider'
+
 export default function Navbar() {
-  let {token,setToken} =useContext(AuthContext)
+  let {token,setToken}=useContext(AuthContext);
+  let {numsOfCartItems,numsOfWishListItems}=useContext(AuthContext);
   let navg= useNavigate()
   function Logout(){
 localStorage.removeItem("token");
@@ -12,7 +14,7 @@ navg("/login")
   }
   return (
 <nav className="bg-white border-gray-200 shadow">
-  <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4">
+  <div className="max-w-screen-xl flex justify-between flex-wrap items-center mx-auto p-4">
     <Link to='' className="flex items-center space-x-3 rtl:space-x-reverse">
         <img src={logoImg} className="h-8" alt="" />
       
@@ -23,9 +25,10 @@ navg("/login")
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
     </button>
-    <div className="hidden justify-between ms-auto w-full md:flex md:w-auto" id="navbar-default">
+    <div className="hidden justify-between gap-64  w-full md:flex md:w-auto" id="navbar-default">
 { token ? (
-   <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row  md:mt-0 md:border-0 md:bg-white ">
+  <div className=''>
+   <ul className="font-medium flex flex-col mp-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row  md:mt-0 md:border-0 md:bg-white ">
         <li>
           <NavLink to="" className="block py-2 px-3" aria-current="page">Home</NavLink>
         </li>
@@ -33,19 +36,20 @@ navg("/login")
           <NavLink to="/product" className="block py-2 px-3">Products</NavLink>
         </li>
         <li>
-          <NavLink to="/cart" className="block py-2 px-3 ">Cart</NavLink>
-        </li>
-        <li>
           <NavLink to="/brand" className="block py-2 px-3 ">Brands</NavLink>
         </li>
         <li>
           <NavLink to="/category" className="block py-2 px-3">Categorys</NavLink>
         </li>
+        <li>
+          <NavLink to="/cart" className="block py-2 px-3 ">Cart</NavLink>
+        </li>
       </ul>
+      </div>
     )  :(
         ""
-      )}
-      <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row  md:mt-0 md:border-0 md:bg-white ">
+      )}  
+      <ul className="font-medium flex  flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row  md:mt-0 md:border-0 md:bg-white ">
         <li>
           <Link to="https://www.facebook.com/" className="block py-2 px-3" aria-current="page"><i class="fa-brands fa-facebook"></i></Link>
         </li>
@@ -64,9 +68,21 @@ navg("/login")
         <li>
           <Link to="https://www.youtube.com/" className="block py-2 px-3"><i class="fa-brands fa-youtube"></i></Link>
         </li>
-        <li>
-          <Link to="" className="block py-2 px-3"><i class="fa-solid fa-cart-shopping"></i></Link>
+        {token ?
+        <div className='flex'>
+          <li className='relative'>
+          <Link to="/cart" className="block py-2 px-3"  ><i class="fa-solid fa-cart-shopping text-active"></i></Link>
+        <span className='absolute text-active top-0 end-0 -translate-y-2 translate-x'>{numsOfCartItems}</span>
         </li>
+          <li className='relative'>
+          <Link to="/wishlist" className="block py-2 px-3"  ><i class="fa-solid fa-heart text-active"></i></Link>
+        <span className='absolute text-active top-0 end-0 -translate-y-2 translate-x'>{numsOfWishListItems}</span>
+        </li>
+        </div>
+        :(
+          ""
+        )}
+      
 
         {token ?  <li onClick={Logout}>
           <span className="block py-2 px-3">Logout</span>
@@ -81,10 +97,8 @@ navg("/login")
         </li>
         </>
         )}
-
-        
-        
       </ul>
+  
     </div>
   </div>
 </nav>

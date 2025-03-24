@@ -5,6 +5,8 @@ import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import * as Yup from "yup"
 import { AuthContext } from '../../Context/AuthContextProvider'
+import { Helmet } from 'react-helmet'
+
 export default function Login() {
 let {setToken} = useContext(AuthContext)
   let navg =useNavigate()
@@ -35,14 +37,17 @@ let {setToken} = useContext(AuthContext)
     });
   }
   return (
-<div>
-<h1 className="w-7/12 mx-auto mb-3 mt-3">Login Now:</h1>
+<div >
+<Helmet>
+    <title>Login</title>
+  </Helmet>
+<h1 className="w-7/12 mx-auto mb-3 mt-9">Login Now:</h1>
 {errMessage ? (
   <div className='p-4 mb-4 w-7/12 mx-auto text-sm text-red-700 rounded-lg bg-red-50 ' role='alert'>{errMessage}</div>
   ):(
     ""
   )}
-  <form onSubmit={LoginForm.handleSubmit} className="w-7/12 mx-auto">
+  <form onSubmit={LoginForm.handleSubmit} className="w-7/12 mx-auto my-8">
   <div className="mb-5">
       <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Your email:</label>
       <input value={LoginForm.values.email} onChange={LoginForm.handleChange} onBlur={LoginForm.handleBlur}
@@ -57,7 +62,7 @@ let {setToken} = useContext(AuthContext)
     </div>
      <Link to='/forgetpassword' >Forget Password ?</Link>
      <br/><br/>
-    <button disabled={!(LoginForm.isValid && LoginForm.dirty)} type="submit" className="text-white bg-active hover:bg-active focus:outline-none focus:ring-active font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center disabled:bg-active disabled:bg-opacity-25">Login</button>
+    <button disabled={!(LoginForm.isValid && LoginForm.dirty)} type="submit" className="text-white mb-5 bg-active hover:bg-active focus:outline-none focus:ring-active font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center disabled:bg-active disabled:bg-opacity-25">Login</button>
   </form>
 </div>);
 }

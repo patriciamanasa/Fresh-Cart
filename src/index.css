@@ -18,3 +18,49 @@ body{
 .active{
   color: var(--main-color);
 }
+.btn{
+  @apply bg-active w-full text-white p-1 rounded hover:bg-green-600
+}
+.loader {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: block;
+  margin:15px auto;
+  position: relative;
+  background: #FFF;
+  box-shadow: -24px 0 #FFF, 24px 0 #FFF;
+  box-sizing: border-box;
+  animation: shadowPulse 2s linear infinite;
+}
+
+@keyframes shadowPulse {
+  33% {
+    background: #FFF;
+    box-shadow: -24px 0 var(--main-color), 24px 0 rgb(232, 231, 231);
+  }
+  66% {
+    background: var(--main-color);
+    box-shadow: -24px 0 rgb(232, 231, 231), 24px 0 rgb(232, 231, 231);
+  }
+  100% {
+    background: #FFF;
+    box-shadow: -24px 0 rgb(232, 231, 231), 24px 0 var(--main-color);
+  }
+}
+@media (width >= 50px) { 
+  #h6{
+     font-size: 10px;
+  }
+ }
+ @media (width >= 48rem) { 
+  #h6{
+    font-size: 12px;
+  }
+  }
+	@media (width >= 64rem) {
+    #h6{
+      font-size: 14px;
+    }
+   }
+

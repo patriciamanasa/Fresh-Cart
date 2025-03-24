@@ -13,6 +13,12 @@ import UpdatePassword from "./components/UpdatePassword/UpdatePassword";
 import ForgetPassword from "./components/ForgetPassword/ForgetPassword";
 import AuthContextProvider from "./Context/AuthContextProvider";
 import ProtectedRouting from "./components/ProtectedRouting/ProtectedRouting";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ShippingDetails from "./components/ShippingDetails/ShippingDetails";
+import Allorders from "./components/Allorders/Allorders";
+import WishList from "./components/WishList/WishList";
+
 
 export default function App() {
   let router = createBrowserRouter([
@@ -20,11 +26,15 @@ export default function App() {
       path: "",
       element: <Layout />,
       children: [
-        { index: true, element:<ProtectedRouting><Home /></ProtectedRouting> },
-        { path: "product", element:<ProtectedRouting> <Product /></ProtectedRouting> },
-        { path: "cart", element: <ProtectedRouting><Cart /></ProtectedRouting> },
-        { path: "brand", element:<ProtectedRouting><Brand /></ProtectedRouting> },
-        { path: "category", element:<ProtectedRouting><Category /> </ProtectedRouting>},
+        { index: true, element:<ProtectedRouting><Home/></ProtectedRouting> },
+        { path: "product", element:<ProtectedRouting> <Product/></ProtectedRouting> },
+        { path: "cart", element: <ProtectedRouting><Cart/></ProtectedRouting> },
+        { path: "brand", element:<ProtectedRouting><Brand/></ProtectedRouting> },
+        { path: "category", element:<ProtectedRouting><Category/></ProtectedRouting>},
+        { path: "ShippingDetails/:id", element:<ProtectedRouting><ShippingDetails/></ProtectedRouting>},
+        { path: "productdetails/:id", element:<ProtectedRouting><ProductDetails/></ProtectedRouting>},
+        { path: "allorders", element:<ProtectedRouting><Allorders/></ProtectedRouting>},
+        { path: "wishlist", element:<ProtectedRouting><WishList/></ProtectedRouting>},
         { path: "login", element: <Login /> },
         { path: "signup", element: <Signup /> },
         { path: "forgetpassword", element: <ForgetPassword /> },
@@ -33,7 +43,15 @@ export default function App() {
       ],
     },
   ]);
-  return <AuthContextProvider>
+let client = new QueryClient()
+  return(
+    <>
+    <QueryClientProvider client={client}>
+    <AuthContextProvider>
     <RouterProvider router={router}/>
-  </AuthContextProvider>;
+  </AuthContextProvider>
+  </QueryClientProvider>
+  
+    </>
+  )
 }

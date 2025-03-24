@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 export default function Signup() {
@@ -51,7 +52,10 @@ export default function Signup() {
   }
   return (
     <div>
-      <h1 className="w-7/12 mx-auto mb-3 mt-3">Register Now:</h1>
+      <Helmet>
+    <title>Signup</title>
+  </Helmet>
+      <h1 className="w-7/12 mx-auto mb-3 mt-9">Register Now:</h1>
       {errMessage ? (
         <div
           className="p-4 mb-4 w-7/12 mx-auto text-sm text-red-700 rounded-lg bg-red-50"
@@ -62,7 +66,7 @@ export default function Signup() {
       ) : (
         ""
       )}
-      <form onSubmit={registerForm.handleSubmit} className="w-7/12 mx-auto">
+      <form onSubmit={registerForm.handleSubmit} className="w-7/12 mx-auto my-8">
         <div className="mb-5">
           <label
             htmlFor="name"

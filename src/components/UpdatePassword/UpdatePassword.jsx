@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { Link, useNavigate } from 'react-router-dom'
 import * as Yup from "yup"
 export default function UpdatePassword() {
@@ -31,13 +32,16 @@ export default function UpdatePassword() {
   }
   return (
 <div>
-<h1 className="w-7/12 mx-auto mb-3 mt-3">Update Password:</h1>
+<Helmet>
+    <title>Update password</title>
+  </Helmet>
+<h1 className="w-7/12 mx-auto mb-3 mt-9">Update Password:</h1>
 {errMessage ? (
   <div className='p-4 mb-4 w-7/12 mx-auto text-sm text-red-700 rounded-lg bg-red-50 ' role='alert'>{errMessage}</div>
   ):(
     ""
   )}
-  <form onSubmit={LoginForm.handleSubmit} className="w-7/12 mx-auto">
+  <form onSubmit={LoginForm.handleSubmit} className="w-7/12 mx-auto my-8">
   <div className="mb-5">
       <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Your email:</label>
       <input value={LoginForm.values.email} onChange={LoginForm.handleChange} onBlur={LoginForm.handleBlur}

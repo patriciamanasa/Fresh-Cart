@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
 import * as Yup from "yup"
 export default function ForgetPassword() {
@@ -49,14 +50,17 @@ function VerifyResetcodeApi(data){
   }
   return (
     <>
-{formDisplay ? <div>
-<h1 className="w-7/12 mx-auto mb-3 mt-3">Forget Password:</h1>
+    <Helmet>
+    <title>Forget password</title>
+  </Helmet>
+{formDisplay ? <div className='h-screen'>
+<h1 className="w-7/12 mx-auto mb-3 mt-9">Forget Password:</h1>
 {errMessage ? (
   <div className='p-4 mb-4 w-7/12 mx-auto text-sm text-red-700 rounded-lg bg-red-50 ' role='alert'>{errMessage}</div>
   ):(
     ""
   )}
-  <form onSubmit={ForgetForm.handleSubmit} className="w-7/12 mx-auto">
+  <form onSubmit={ForgetForm.handleSubmit} className="w-7/12 mx-auto my-8">
   <div className="mb-5">
       <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Your email:</label>
       <input value={ForgetForm.values.email} onChange={ForgetForm.handleChange} onBlur={ForgetForm.handleBlur}
@@ -69,13 +73,13 @@ function VerifyResetcodeApi(data){
 </div>
  :
 <div>
-<h1 className="w-7/12 mx-auto mb-3 mt-3">Reset Code</h1>
+<h1 className="w-7/12 mx-auto mb-3 mt-9">Reset Code</h1>
 {errMessage ? (
   <div className='p-4 mb-4 w-7/12 mx-auto text-sm text-red-700 rounded-lg bg-red-50 ' role='alert'>{errMessage}</div>
   ):(
     ""
   )}
-  <form onSubmit={VerifyResetcodeForm.handleSubmit} className="w-7/12 mx-auto">
+  <form onSubmit={VerifyResetcodeForm.handleSubmit} className="w-7/12 my-8 mx-auto h-screen">
   <div className="mb-5">
       <label htmlFor="resetCode" className="block mb-2 text-sm font-medium text-gray-900">ResetCode:</label>
       <input value={VerifyResetcodeForm.values.email} onChange={VerifyResetcodeForm.handleChange} onBlur={VerifyResetcodeForm.handleBlur}
