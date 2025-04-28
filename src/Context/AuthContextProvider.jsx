@@ -18,6 +18,17 @@ queryFn:getUserCart,
 }
 ) ; 
 
+function refreshUserCart() {
+  getUserCart()
+    .then((res) => {
+      const products = res.data.data?.products || [];
+      setnumsCartItems(products.length);
+    })
+    .catch((err) => {
+      console.log('Error refreshing cart', err);
+    });
+}
+
 let [numsOfCartItems,setnumsCartItems]=useState(null)
    useEffect(() => {
     const storedCartItems = localStorage.getItem('numOfCartItems')
@@ -36,11 +47,13 @@ let [numsOfCartItems,setnumsCartItems]=useState(null)
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      getUserCart().then(() => {
-        setnumsCartItems(query?.data?.data?.numOfCartItems)
-      })
+      getUserCart().then((res) => {
+        const products = res.data.data?.products || [];
+        setnumsCartItems(products.length);
+      });
     }
   }, [query])
+  
 
   const [numsOfWishListItems, setnumsWishListItems] = useState(null)
   const [wishListProducts, setWishListProducts] = useState([])
@@ -110,6 +123,6 @@ return  axios.delete(`${baseUrl2}/${id}`,headerOptions)
 } 
 
   return (
-    <AuthContext.Provider value={{token,setToken,getUserCart,addProduct,numsOfCartItems,setnumsCartItems,deleteProduct,ClearProducts,UpdateCartItemCount,addWishListProduct, deleteWishListProduct,getUserWishList,numsOfWishListItems,setnumsWishListItems}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{token,setToken,getUserCart,addProduct,numsOfCartItems,setnumsCartItems,deleteProduct,ClearProducts,UpdateCartItemCount,addWishListProduct, deleteWishListProduct,getUserWishList,numsOfWishListItems,setnumsWishListItems, ClearProducts, UpdateCartItemCount,}}>{children}</AuthContext.Provider>
   )
 }
