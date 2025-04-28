@@ -31,7 +31,7 @@ export default function App() {
         { path: "cart", element: <ProtectedRouting><Cart/></ProtectedRouting> },
         { path: "brand", element:<ProtectedRouting><Brand/></ProtectedRouting> },
         { path: "category", element:<ProtectedRouting><Category/></ProtectedRouting>},
-        { path: "ShippingDetails/:id", element:<ProtectedRouting><ShippingDetails/></ProtectedRouting>},
+        { path: "ShippingDetails/:type", element:<ProtectedRouting><ShippingDetails/></ProtectedRouting>},
         { path: "productdetails/:id", element:<ProtectedRouting><ProductDetails/></ProtectedRouting>},
         { path: "allorders", element:<ProtectedRouting><Allorders/></ProtectedRouting>},
         { path: "wishlist", element:<ProtectedRouting><WishList/></ProtectedRouting>},

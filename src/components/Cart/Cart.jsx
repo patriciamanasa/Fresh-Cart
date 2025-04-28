@@ -76,14 +76,14 @@ export default function Cart() {
     });
   
     UpdateCartItemCount(id, count)
-      .then((res) => {
-        setCartData(res.data.data);
-        toast.success("Quantity updated");
-      })
-      .catch(() => {
-        toast.error("Can't update quantity");
-      });
-  }
+    .then((res) => {
+      setCartData(res.data.data);
+      toast.success("Quantity updated");
+    })
+    .catch(() => {
+      toast.error("Can't update quantity");
+    });
+}
   
 
   if (loading) {
@@ -150,7 +150,7 @@ export default function Cart() {
             ))}
           </div>
           <br />
-          <Link to={"/ShippingDetails/" + cartData._id} className="btn block text-center">
+          <Link to={"/ShippingDetails/"+cartData._id} className="btn block text-center">
             Pay <i className="fa-brands fa-cc-visa"></i>
           </Link>
         </div>

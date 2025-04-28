@@ -80,7 +80,7 @@ return <div key={item._id}  className='flex items-center py-3'>
     </div>
     <br/>
   
-<Link to={'/ShippingDetails/'+wishlistdata} className='btn block text-center'>Pay <i className="fa-brands fa-cc-visa"></i></Link>   
+<Link to={'/ShippingDetails/wishlist'} className='btn block text-center'>Pay <i className="fa-brands fa-cc-visa"></i></Link>   
     </div>:
     <div className='text-red-600 text-center h-screen'>
       No Data</div>

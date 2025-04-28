@@ -1,11 +1,23 @@
-import axios from 'axios';
+ import axios from 'axios';
 import { useFormik } from 'formik';
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams} from 'react-router-dom'
 import * as Yup from "yup";
+import { AuthContext } from '../../Context/AuthContextProvider';
 
 export default function ShippingDetails() {
+let { getUserCart } = useContext(AuthContext);
+let [cartId, setCartId] = useState(null);
+
+useEffect(() => {
+  getUserCart().then((res) => {
+    setCartId(res.data.data._id); 
+  }).catch((err) => {
+    console.log('Error fetching cart', err);
+  });
+}, []);
+  
   let validYup = Yup.object({
     details: Yup.string()
       .required("details required")
@@ -16,7 +28,6 @@ export default function ShippingDetails() {
       .required("phone number required")
       .matches(/^(20)?01[1250][0-9]{8}$/, "enter valid number"),
   });
-let {id}= useParams();
 const headerOptions={
   headers:{
     token:localStorage.getItem("token"),
@@ -30,15 +41,63 @@ let shippingFormik= useFormik({
 onSubmit:checkOutSession,
 validationSchema: validYup,
 })
-function checkOutSession(values){
-  let data ={
-    shippingAddress:values
-  }
-axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/67b784d1d6327c5081738d0f?url=http://localhost:5173`,data,headerOptions).then((req)=>{
-window.open(req.data.session.url,"_self");
-console.log(req.data.session.url)
-})
-}
+    let { type } = useParams();
+    let location = useLocation();
+    let [wishlistProducts, setWishlistProducts] = useState([]);
+    
+    // fetch wishlist if needed
+  useEffect(() => {
+      if (type === "wishlist") {
+        axios.get(`https://ecommerce.routemisr.com/api/v1/wishlist`, headerOptions)
+          .then((res) => {
+            setWishlistProducts(res.data.data); // wishlist products
+          })
+          .catch((err) => console.log('Error fetching wishlist', err));
+      }
+    }, [type]);
+    
+  async function checkOutSession(values) { 
+      if (!cartId) {
+        console.log('Cart ID not ready');
+        return;
+      }
+    
+      if (type === 'wishlist') {
+        if (wishlistProducts.length === 0) {
+          console.log('No products in wishlist');
+          return;
+        }
+        
+        try {
+          // add all wishlist products to cart
+          for (const product of wishlistProducts) {
+            await axios.post('https://ecommerce.routemisr.com/api/v1/cart', { productId: product.id }, headerOptions);
+          }
+          console.log('Wishlist moved to cart');
+        } catch (err) {
+          console.error('Error moving wishlist to cart', err);
+          return;
+        }
+      }
+    
+      let data = {
+        shippingAddress: values
+      };
+    
+      axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=http://localhost:5173`, data, headerOptions)
+        .then((req) => {
+          window.open(req.data.session.url, "_self");
+        })
+        .catch((err) => {
+          console.log('Error creating checkout session', err);
+        });
+    }  
+      
+        
+        
+        
+            
+    
   return (
     <>
     <Helmet>
@@ -72,4 +131,4 @@ console.log(req.data.session.url)
     </div>
     </>
   )
-}
+} 
