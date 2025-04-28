@@ -27,7 +27,7 @@ export default function App() {
       element: <Layout />,
       children: [
         { index: true, element:<ProtectedRouting><Home/></ProtectedRouting> },
-        { path: "product", element:<ProtectedRouting> <Product/></ProtectedRouting> },
+        { path: "product", element:<ProtectedRouting><Product/></ProtectedRouting> },
         { path: "cart", element: <ProtectedRouting><Cart/></ProtectedRouting> },
         { path: "brand", element:<ProtectedRouting><Brand/></ProtectedRouting> },
         { path: "category", element:<ProtectedRouting><Category/></ProtectedRouting>},

@@ -17,8 +17,8 @@ import img7 from "../../assets/images/banner-4.jpeg"
         infinite:true,
       };
       return (
-      <div className="flex ">
-<div  className="w-9/12">
+      <div className="flex">
+<div  className="w-full lg:w-9/12">
 <Slider  {...settings}>
           <div>
           <img src={img3} className="w-full h-96 object-cover  " alt="" />
@@ -37,7 +37,7 @@ import img7 from "../../assets/images/banner-4.jpeg"
         </div>
         </Slider>
 </div>
- <div className="w-3/12">
+ <div className="w-full lg:w-3/12 mt-4 lg:mt-0">
 <div><img src={img2} alt="" className="w-full h-48 object-cover " /></div>
 <div><img src={img1} alt="" className="w-full h-48 object-cover "/></div>
 </div>

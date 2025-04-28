@@ -4,8 +4,7 @@ import logoImg from '../../assets/images/freshcart-logo.svg'
 import  { AuthContext } from '../../Context/AuthContextProvider'
 
 export default function Navbar() {
-  let {token,setToken}=useContext(AuthContext);
-  let {numsOfCartItems,numsOfWishListItems}=useContext(AuthContext);
+  let {token,setToken,numsOfCartItems,numsOfWishListItems}=useContext(AuthContext);
   let navg= useNavigate()
   function Logout(){
 localStorage.removeItem("token");

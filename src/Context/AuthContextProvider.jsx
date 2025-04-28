@@ -5,39 +5,68 @@ import { useState } from 'react'
 export let AuthContext=createContext()
 export default function AuthContextProvider({children}){
 let[token,setToken]=useState(null)
-useEffect(()=>{
-  let TokenStorage=localStorage.getItem("token")
+ useEffect(()=>{
+  const TokenStorage=localStorage.getItem("token")
   if(TokenStorage){
  setToken(TokenStorage);
   }
 },[])
-let [numsOfCartItems,setnumsCartItems]=useState(null)
-  useEffect(()=>{
-    if(localStorage.getItem('token')){
-      getUserCart().then(()=>{
-        setnumsCartItems(query?.data?.data?.numOfCartItems)
-    
-      })
-    }
-  })
-let [numsOfWishListItems,setnumsWishListItems]=useState(null)
-  useEffect(()=>{
-    if(localStorage.getItem('token')){
-      getUserWishList().then(()=>{
-        setnumsWishListItems(query2?.data?.data?.numsOfWishListItems)
-      })
-    }
-  })
-let query =useQuery({
+
+const query =useQuery({
   queryKey:['UserCart'],
 queryFn:getUserCart,
 }
-)  
+) ; 
 
-let query2 =useQuery({
-  queryKey:['UserWishList'],
-queryFn:getUserWishList,
-})
+let [numsOfCartItems,setnumsCartItems]=useState(null)
+   useEffect(() => {
+    const storedCartItems = localStorage.getItem('numOfCartItems')
+    if (storedCartItems) {
+      setnumsCartItems(Number(storedCartItems))
+    } else {
+      setnumsCartItems(query?.data?.data?.numOfCartItems)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (numsOfCartItems !== null) {
+      localStorage.setItem('numOfCartItems', numsOfCartItems)
+    }
+  }, [numsOfCartItems])
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      getUserCart().then(() => {
+        setnumsCartItems(query?.data?.data?.numOfCartItems)
+      })
+    }
+  }, [query])
+
+  const [numsOfWishListItems, setnumsWishListItems] = useState(null)
+  const [wishListProducts, setWishListProducts] = useState([])
+
+  useEffect(() => {
+    const storedWishList = localStorage.getItem('wishList')
+    if (storedWishList) {
+      const parsedWishList = JSON.parse(storedWishList)
+      setWishListProducts(parsedWishList)
+      setnumsWishListItems(parsedWishList.length)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (token) {
+      getUserWishList().then((res) => {
+        const products = res.data.data
+        const wishlistProductIds = products.map((product) => product.id)
+        setnumsWishListItems(wishlistProductIds.length)
+        setWishListProducts(products)
+        localStorage.setItem('wishList', JSON.stringify(products))
+      })
+    }
+  }, [token])
+
+
 const headerOptions={
   headers:{
     token:localStorage.getItem('token'),
@@ -81,6 +110,6 @@ return  axios.delete(`${baseUrl2}/${id}`,headerOptions)
 } 
 
   return (
-    <AuthContext.Provider value={{token,setToken,getUserCart,addProduct,numsOfCartItems,setnumsCartItems,deleteProduct,ClearProducts,UpdateCartItemCount,addWishListProduct,deleteWishListProduct,getUserWishList,numsOfWishListItems,setnumsWishListItems}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{token,setToken,getUserCart,addProduct,numsOfCartItems,setnumsCartItems,deleteProduct,ClearProducts,UpdateCartItemCount,addWishListProduct, deleteWishListProduct,getUserWishList,numsOfWishListItems,setnumsWishListItems}}>{children}</AuthContext.Provider>
   )
 }

@@ -26,17 +26,21 @@ export default function Brand() {
     <Helmet>
     <title>Brands</title>
   </Helmet>
-        <div className='w-8/12 md:w-full mx-auto my-9'>
-        {BrandList?.map((Brand)=>{
-          return(
-            <div className='inline-flex   m-9 '>
-     <div key={Brand._id}>
-     <img src={Brand.image} className='w-full object-cover h-40' alt="" />
-    </div>
-    </div>
-      );
-    })}
-    </div>
+  <div className='w-10/12 mx-auto my-9'>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {BrandList?.map((Brand) => {
+            return (
+              <div key={Brand._id} className="flex justify-center items-center">
+                <img
+                  src={Brand.image}
+                  className="w-full object-contain h-40"
+                  alt={Brand.name}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </>
   )
 }

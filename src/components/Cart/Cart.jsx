@@ -74,19 +74,19 @@ return(
 <div className='divide-y-2 divide-gray-100'>
 {cartData.products.map((item)=>{
 return <div key={item._id}  className='flex items-center py-3'>
-<div className='w-10/12'>
-<div className='flex justify-around'>
-  <div className='w-1/12'>
+<div className='w-full sm:w-8/12 md:w-9/12'>
+<div className='flex justify-center items-center'>
+  <div className='w-1/4'>
   <img src={item.product.imageCover} className="w-full" alt="" /></div>
-  <div className='w-10/12'>
+  <div className='w-3/4 pl-4'>
   <h2>Title:{item.product.title}</h2>
   <h2 className='mt-3 text-active mb-2'>Price:{item.price} EGP</h2>
-  <button onClick={()=>{removeItem(item.product._id)}} className='border border-red-600 px-3 rounded py-2 text-red-600 hover:bg-red-600 hover:text-white'><i className='fa-solid fa-trash-can mr-2'>
+  <button onClick={()=>{removeItem(item.product._id)}} className='border border-red-600 px-3 rounded py-2 text-red-600 hover:bg-red-600 hover:text-white'><i className='fa-solid fa-trash-can'>
     </i>Remove</button>
   </div>
   </div>
   </div>
-<div className='w-2/12'>
+<div className='w-full sm:w-4/12 md:w-3/12 flex justify-center items-center mt-3 sm:mt-0'>
 <i onClick={()=>{UpdateCount(item.product._id,item.count+1)}} className='border cursor-pointer rounded border-active p-2 fa-solid fa-plus'></i>
 <span className='mx-2'>{item.count}</span>
 <i onClick={()=>{UpdateCount(item.product._id,item.count - 1)}} className='border cursor-pointer rounded border-active p-2 fa-solid fa-minus'></i>
