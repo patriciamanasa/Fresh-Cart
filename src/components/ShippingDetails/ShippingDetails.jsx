@@ -44,8 +44,7 @@ validationSchema: validYup,
     let { type } = useParams();
     let location = useLocation();
     let [wishlistProducts, setWishlistProducts] = useState([]);
-    
-    // fetch wishlist if needed
+
   useEffect(() => {
       if (type === "wishlist") {
         axios.get(`https://ecommerce.routemisr.com/api/v1/wishlist`, headerOptions)
@@ -69,7 +68,7 @@ validationSchema: validYup,
         }
         
         try {
-          // add all wishlist products to cart
+
           for (const product of wishlistProducts) {
             await axios.post('https://ecommerce.routemisr.com/api/v1/cart', { productId: product.id }, headerOptions);
           }
