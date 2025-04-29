@@ -26,7 +26,7 @@ navg("/login")
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
     </button>
-    <div className="hidden justify-between gap-64  w-full md:flex md:w-auto" id="navbar-default">
+    <div className={`${isOpen ? 'block' : 'hidden'} justify-between gap-4 w-full md:flex md:w-auto`} id="navbar-default">
 { token ? (
   <div className=''>
    <ul className="font-medium flex flex-col mp-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row  md:mt-0 md:border-0 md:bg-white ">
@@ -52,31 +52,31 @@ navg("/login")
       )}  
       <ul className="font-medium flex  flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row  md:mt-0 md:border-0 md:bg-white ">
         <li>
-          <Link to="https://www.facebook.com/" className="block py-2 px-3" aria-current="page"><i class="fa-brands fa-facebook"></i></Link>
+          <Link to="https://www.facebook.com/" className="block py-2 px-3" aria-current="page"><i className="fa-brands fa-facebook"></i></Link>
         </li>
         <li>
-          <Link to="https://x.com/" className="block py-2 px-3"><i class="fa-brands fa-twitter"></i></Link>
+          <Link to="https://x.com/" className="block py-2 px-3"><i className="fa-brands fa-twitter"></i></Link>
         </li>
         <li>
-          <Link to="https://www.instagram.com/" className="block py-2 px-3 "><i class="fa-brands fa-instagram"></i></Link>
+          <Link to="https://www.instagram.com/" className="block py-2 px-3 "><i className="fa-brands fa-instagram"></i></Link>
         </li>
         <li>
           <Link to="https://tiktok.com/" className="block py-2 px-3 "><i class="fa-brands fa-tiktok"></i></Link>
         </li>
         <li>
-          <Link to="https://www.linkedin.com/" className="block py-2 px-3"><i class="fa-brands fa-linkedin"></i></Link>
+          <Link to="https://www.linkedin.com/" className="block py-2 px-3"><i className="fa-brands fa-linkedin"></i></Link>
         </li>
         <li>
-          <Link to="https://www.youtube.com/" className="block py-2 px-3"><i class="fa-brands fa-youtube"></i></Link>
+          <Link to="https://www.youtube.com/" className="block py-2 px-3"><i className="fa-brands fa-youtube"></i></Link>
         </li>
         {token ?
         <div className='flex'>
           <li className='relative'>
-          <Link to="/cart" className="block py-2 px-3"  ><i class="fa-solid fa-cart-shopping text-active"></i></Link>
+          <Link to="/cart" className="block py-2 px-3"  ><i className="fa-solid fa-cart-shopping text-active"></i></Link>
         <span className='absolute text-active top-0 end-0 -translate-y-2 translate-x'>{numsOfCartItems}</span>
         </li>
           <li className='relative'>
-          <Link to="/wishlist" className="block py-2 px-3"  ><i class="fa-solid fa-heart text-active"></i></Link>
+          <Link to="/wishlist" className="block py-2 px-3"  ><i className="fa-solid fa-heart text-active"></i></Link>
         <span className='absolute text-active top-0 end-0 -translate-y-2 translate-x'>{numsOfWishListItems}</span>
         </li>
         </div>

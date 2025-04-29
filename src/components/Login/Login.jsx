@@ -60,7 +60,7 @@ let {setToken} = useContext(AuthContext)
        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-active-500 focus:border-active-500 block w-full p-2.5" />
        {LoginForm.touched.password && LoginForm.errors.password ?(<p className='text-red-700'>{LoginForm.errors.password}</p>):("")}
     </div>
-     <p>Create Account? <Link to='/signup' className='underline text-active'>Singup</Link></p>
+     <p>Create Account? <Link to='/signup' className='underline text-active'>Signup</Link></p>
      <Link to='/forgetpassword' >Forget Password ?</Link>
      <br/><br/>
     <button disabled={!(LoginForm.isValid && LoginForm.dirty)} type="submit" className="text-white mb-5 bg-active hover:bg-active focus:outline-none focus:ring-active font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center disabled:bg-active disabled:bg-opacity-25">Login</button>
