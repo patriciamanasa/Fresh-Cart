@@ -2,7 +2,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 export default function Signup() {
   let navg = useNavigate();
@@ -157,6 +157,8 @@ export default function Signup() {
           />
             {registerForm.touched.phone && registerForm.errors.phone  ? <p className="text-red-700">{registerForm.errors.phone}</p>:""}
         </div>
+        <p>Have an Account? <Link to='/login' className='underline text-active'>Login</Link></p>
+        <br/>
         <button
           disabled={!(registerForm.isValid && registerForm.dirty)}
           type="submit"
